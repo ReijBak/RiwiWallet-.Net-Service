@@ -169,6 +169,13 @@ try
 
     var app = builder.Build();
 
+    // Apply pending EF Core migrations on startup so schema stays in sync with the model.
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        dbContext.Database.Migrate();
+    }
+
     // Configure the HTTP request pipeline
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Riwi Wallet - MS Core API v1"));
