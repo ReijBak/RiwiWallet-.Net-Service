@@ -169,6 +169,22 @@ try
 
     var app = builder.Build();
 
+    // Ejecuta migraciones pendientes al iniciar (se puede desactivar con Database:AutoMigrateOnStartup=false)
+    var autoMigrateOnStartup = builder.Configuration.GetValue<bool?>("Database:AutoMigrateOnStartup") ?? true;
+    if (autoMigrateOnStartup)
+    {
+        using var scope = app.Services.CreateScope();
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+        Log.Information("Applying database migrations...");
+        dbContext.Database.Migrate();
+        Log.Information("Database migrations applied successfully");
+    }
+    else
+    {
+        Log.Information("Automatic database migrations are disabled by configuration");
+    }
+
     // Configure the HTTP request pipeline
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Riwi Wallet - MS Core API v1"));
