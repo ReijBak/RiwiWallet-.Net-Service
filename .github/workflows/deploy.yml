@@ -21,7 +21,7 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build image
-        run: docker build -t ghcr.io/reijbak/riwiwallet-.net-service:latest .
+        run: docker build -t ghcr.io/reijbak/riwiwallet-dotnet-service:latest .
 
       - name: Push image
-        run: docker push ghcr.io/reijbak/riwiwallet-.net-service:latest
+        run: docker push ghcr.io/reijbak/riwiwallet-dotnet-service:latest
