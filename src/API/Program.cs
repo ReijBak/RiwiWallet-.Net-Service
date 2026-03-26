@@ -54,9 +54,18 @@ try
         c.SwaggerDoc("v1", new() { Title = "Riwi Wallet - MS Core API", Version = "v1" });
     });
 
-    // Database Configuration
+    // Database Configuration (prioriza variable de entorno sobre appsettings)
+    var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+        ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
+    if (string.IsNullOrWhiteSpace(connectionString))
+    {
+        throw new InvalidOperationException(
+            "No se encontró la cadena de conexión. Configure ConnectionStrings__DefaultConnection en variables de entorno.");
+    }
+
     builder.Services.AddDbContext<ApplicationDbContext>(options =>
-        options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+        options.UseNpgsql(connectionString));
 
     // Dependency Injection - Repositories
     builder.Services.AddScoped<IUserRepository, UserRepository>();
