@@ -158,8 +158,8 @@ try
                 "http://localhost:5173",  // Dashboard (Vue.js)
                 "http://localhost:8081",  // Gateway (Spring Boot)
                 // Production
-                "https://avaricia.crudzaso.com",  // Frontend production
-                "https://sb.avaricia.crudzaso.com"  // Spring Boot backend production
+                "https://riwiwallet.stevencardona.dev",  // Frontend production
+                "https://sbservice.riwiwallet.stevencardona.dev"  // Spring Boot backend production
             )
             .AllowAnyHeader()
             .AllowAnyMethod()
