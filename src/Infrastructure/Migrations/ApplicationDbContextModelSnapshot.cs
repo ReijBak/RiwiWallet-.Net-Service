@@ -61,75 +61,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId", "IsActive");
 
-                    b.ToTable("FinancialRules", (string)null);
-                });
-
-            modelBuilder.Entity("Core.Domain.Entities.RecurringTransaction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int?>("DayOfMonth")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("DayOfWeek")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Frequency")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsPaidThisPeriod")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTime?>("LastPaidDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("NextExecutionDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("IsActive", "NextExecutionDate");
-
-                    b.ToTable("RecurringTransactions", (string)null);
+                    b.ToTable("FinancialRules");
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.RefreshToken", b =>
@@ -178,7 +110,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId", "IsRevoked", "ExpiresAt");
 
-                    b.ToTable("RefreshTokens", (string)null);
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.TelegramLinkCode", b =>
@@ -217,7 +149,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId", "IsUsed");
 
-                    b.ToTable("TelegramLinkCodes", (string)null);
+                    b.ToTable("TelegramLinkCodes");
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.Transaction", b =>
@@ -264,7 +196,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Transactions", (string)null);
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.User", b =>
@@ -277,66 +209,46 @@ namespace Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("CurrentBalance")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasColumnType("text");
+
+                    b.Property<string>("Provider")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProviderId")
+                        .HasColumnType("text");
 
                     b.Property<long?>("TelegramId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("TelegramUsername")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("PhoneNumber")
-                        .IsUnique();
-
-                    b.HasIndex("TelegramId")
-                        .IsUnique()
-                        .HasFilter("\"TelegramId\" IS NOT NULL");
-
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.FinancialRule", b =>
                 {
                     b.HasOne("Core.Domain.Entities.User", "User")
                         .WithMany("FinancialRules")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Core.Domain.Entities.RecurringTransaction", b =>
-                {
-                    b.HasOne("Core.Domain.Entities.User", "User")
-                        .WithMany("RecurringTransactions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -380,8 +292,6 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Core.Domain.Entities.User", b =>
                 {
                     b.Navigation("FinancialRules");
-
-                    b.Navigation("RecurringTransactions");
 
                     b.Navigation("RefreshTokens");
 
