@@ -1,0 +1,11 @@
+**/bin
+**/obj
+.git
+.github
+.vscode
+.idea
+src/API/logs
+*.user
+*.suo
+.env
+.env.*
