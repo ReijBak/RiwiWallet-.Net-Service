@@ -167,7 +167,21 @@ Telegram__BotUsername=your_telegram_bot_username
 #### 3. Run database migrations
 
 ```bash
-dotnet ef database update --project src/Infrastructure/Infrastructure.csproj --startup-project src/API/API.csproj
+dotnet ef database update --project src/Infrastructure/Infrastructure.csproj
+```
+
+> Note: `ConnectionStrings__DefaultConnection` must be set in the environment variables before running migrations.
+
+PowerShell:
+
+```powershell
+$env:ConnectionStrings__DefaultConnection="Host=localhost;Database=financial_assistant;Username=your_user;Password=your_password;Port=5432"
+```
+
+Git Bash:
+
+```bash
+export ConnectionStrings__DefaultConnection="Host=localhost;Database=financial_assistant;Username=your_user;Password=your_password;Port=5432"
 ```
 
 #### 4. Run the application
@@ -409,7 +423,21 @@ Telegram__BotUsername=nombre_de_tu_bot_telegram
 #### 3. Ejecutar migraciones de base de datos
 
 ```bash
-dotnet ef database update --project src/Infrastructure/Infrastructure.csproj --startup-project src/API/API.csproj
+dotnet ef database update --project src/Infrastructure/Infrastructure.csproj
+```
+
+> Nota: `ConnectionStrings__DefaultConnection` debe estar definida en variables de entorno antes de correr migraciones.
+
+PowerShell:
+
+```powershell
+$env:ConnectionStrings__DefaultConnection="Host=localhost;Database=financial_assistant;Username=tu_usuario;Password=tu_password;Port=5432"
+```
+
+Git Bash:
+
+```bash
+export ConnectionStrings__DefaultConnection="Host=localhost;Database=financial_assistant;Username=tu_usuario;Password=tu_password;Port=5432"
 ```
 
 #### 4. Ejecutar la aplicacion
