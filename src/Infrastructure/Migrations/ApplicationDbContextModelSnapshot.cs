@@ -61,7 +61,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId", "IsActive");
 
-                    b.ToTable("FinancialRules");
+                    b.ToTable("FinancialRules", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.RecurringTransaction", b =>
@@ -129,7 +129,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("IsActive", "NextExecutionDate");
 
-                    b.ToTable("RecurringTransactions");
+                    b.ToTable("RecurringTransactions", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.RefreshToken", b =>
@@ -178,7 +178,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId", "IsRevoked", "ExpiresAt");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.TelegramLinkCode", b =>
@@ -217,7 +217,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId", "IsUsed");
 
-                    b.ToTable("TelegramLinkCodes");
+                    b.ToTable("TelegramLinkCodes", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.Transaction", b =>
@@ -264,7 +264,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transactions", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.User", b =>
@@ -294,7 +294,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("character varying(500)");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
@@ -320,7 +319,7 @@ namespace Infrastructure.Migrations
                         .IsUnique()
                         .HasFilter("\"TelegramId\" IS NOT NULL");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Entities.FinancialRule", b =>
